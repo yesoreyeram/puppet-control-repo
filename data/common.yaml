@@ -1,2 +1,3 @@
 ---
   welcome : "Hello Welcome to Puppet Control Repository - From common.yaml"
+  enhancer_packages : ['wget','sudo','openssh-server','curl','apt-utils','apt-transport-https', 'nano','git','unzip','jq','lvm2','apache2-utils']

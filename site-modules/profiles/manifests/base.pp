@@ -1,3 +1,10 @@
 class profiles::base {
-  info('Base profile')
+  exec { 
+    'apt-update':
+        command => "/usr/bin/apt-get update --yes"
+  }
+  ensure_packages(lookup('enhancer_packages'),{ 
+      ensure => present, 
+      provider => apt, 
+  })
 }
