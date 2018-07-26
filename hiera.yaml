@@ -1,0 +1,10 @@
+version: 5
+defaults:
+  datadir: 'data'
+  data_hash: 'yaml_data'
+hierarchy:
+  - name: 'YAML Levels'
+    paths:
+      - 'nodes/%{hostname}.yaml'
+      - 'environments/%{environment}/roles/%{role}.yaml'
+      - 'common.yaml'

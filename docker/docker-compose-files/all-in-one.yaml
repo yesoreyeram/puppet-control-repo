@@ -1,0 +1,21 @@
+version: '3'
+services:
+  dev:    
+    image: puppet-ubuntu:16.04
+    container_name: "allinone.dev.vm"
+    hostname: allinone
+    dns_search: dev.vm
+    tty: true
+    privileged: true
+    restart: always
+    ports: 
+      - 80:80
+      - 443:443
+      - 3000:3000
+      - 3001:3001
+      - 2003:2003
+      - 8888:8888
+    sysctls:
+      - net.core.somaxconn=4096
+    volumes: 
+      - c:/Users/s.sugumaran/desktop/puppet:/opt/puppet/
