@@ -6,5 +6,10 @@ class profiles::base {
   ensure_packages(lookup('enhancer_packages'),{ 
       ensure => present, 
       provider => apt, 
-  })
+  })  
+  user {
+    'Prime User' :
+        ensure => present,
+        name   => lookup('username'),
+  }
 }
