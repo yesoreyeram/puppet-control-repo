@@ -1,6 +1,6 @@
 version: '3'
 services:
-  dev:    
+  allinone:    
     image: puppet-ubuntu:16.04
     container_name: "allinone.dev.vm"
     hostname: allinone
