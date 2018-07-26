@@ -19,3 +19,4 @@ services:
       - net.core.somaxconn=4096
     volumes: 
       - c:/Users/s.sugumaran/desktop/puppet:/opt/puppet/
+      - c:/Users/s.sugumaran/desktop/puppet/runtime/allinone/:/etc/puppetlabs/facter/facts.d/
