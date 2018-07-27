@@ -1,12 +1,13 @@
+# Class profiles::base
 class profiles::base {
-  exec { 
+  exec {
     'apt-update':
-        command => "/usr/bin/apt-get update --yes"
+        command => '/usr/bin/apt-get update --yes'
   }
-  ensure_packages(lookup('enhancer_packages'),{ 
-      ensure => present, 
-      provider => apt, 
-  })  
+  ensure_packages(lookup('enhancer_packages'),{
+      ensure => present,
+      provider => apt,
+  })
   user {
     'Prime User' :
         ensure => present,
