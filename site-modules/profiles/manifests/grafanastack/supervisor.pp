@@ -9,6 +9,6 @@ class profiles::grafanastack::supervisor {
     inet_auth            => false,
     inet_username        => undef,
     inet_password        => undef,
+    require              => Class['::profiles::grafanastack::pip'] 
   }
-  Class['::profiles::grafanastack::pip'] -> Class['supervisord']
 }
