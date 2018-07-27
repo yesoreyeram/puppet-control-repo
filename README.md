@@ -16,3 +16,14 @@ Puppet control repository
     # Log into container and apply puppet
     docker exec -it allinone.dev.vm bash
     /opt/puppet/puppet.sh
+
+# Development using Vagrant
+
+    # Install host manager
+    vagrant plugin install vagrant-hostmanager
+    
+    # Build VM
+    vagrant up
+    
+    # Log into the VM
+    vagrant ssh
