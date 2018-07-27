@@ -2,7 +2,7 @@
 class profiles::base {
   exec {
     'apt-update':
-        command => '/usr/bin/apt-get update --yes'
+        command => '/usr/bin/apt-get update --yes --fix-missing'
   }
   ensure_packages(lookup('enhancer_packages'),{
       ensure => present,
