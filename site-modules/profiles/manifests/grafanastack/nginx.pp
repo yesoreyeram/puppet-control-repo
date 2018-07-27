@@ -1,4 +1,5 @@
 # Class profiles::grafanastack::nginx
 class profiles::grafanastack::nginx {
-  class { 'nginx': }
+  notice('Nginx will be installed here')
+  #class { 'nginx': }
 }
