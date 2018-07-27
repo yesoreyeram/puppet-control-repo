@@ -1,4 +1,4 @@
-# Class profiles::grafanastack::supervisot
+# Class profiles::grafanastack::supervisor
 class profiles::grafanastack::supervisor {
   include ::profiles::grafanastack::pip
   class { 'supervisord':
