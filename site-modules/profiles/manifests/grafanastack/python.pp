@@ -7,9 +7,4 @@ class profiles::grafanastack::python {
     virtualenv => 'absent',
     gunicorn   => 'absent',
   }
-  python::pip { 'pip-pip' :
-    ensure  => '9.0.3',
-    pkgname => 'pip',
-    require => Class['python']
-  }
 }
