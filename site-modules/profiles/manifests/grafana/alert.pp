@@ -31,7 +31,7 @@ class profiles::grafana::alert {
   file {
     '/opt/grafana/storage/alert/conf/grafana.ini':
         ensure  => file,
-        content => template('profiles/grafana.config.ini.erb'),
+        content => template('grafana/config.ini.erb'),
         owner   => lookup('username'),
         group   => lookup('username')
   }

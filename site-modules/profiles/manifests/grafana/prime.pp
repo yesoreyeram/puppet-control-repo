@@ -31,7 +31,7 @@ class profiles::grafana::prime {
   file {
     '/opt/grafana/storage/prime/conf/grafana.ini':
         ensure  => file,
-        content => template('profiles/grafana.config.ini.erb'),
+        content => template('grafana/config.ini.erb'),
         owner   => lookup('username'),
         group   => lookup('username')
   }
