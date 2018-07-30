@@ -10,5 +10,5 @@ class profiles::grafanastack::base {
   include ::profiles::grafanastack::pip
   include ::profiles::grafanastack::supervisor
   include ::profiles::grafanastack::nginx
-  include ::profiles::grafanastack::nodejs
+  # include ::profiles::grafanastack::nodejs
 }
