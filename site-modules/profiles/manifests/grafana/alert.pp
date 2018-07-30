@@ -26,7 +26,7 @@ class profiles::grafana::alert {
       provider => shell,
       command  => "tar -xzvf /opt/puppet/packages/grafana-${grafanaversion}.tar.gz -C /opt/grafana/alert --strip-components=1",
       unless   => "cat /opt/grafana/alert/VERSION | grep ${grafanaversion}",
-      require  => File['/opt/grafana/alert'],
+      require  => File['/opt/grafana/alert/'],
   }
   file { 
     "/opt/grafana/storage/alert/conf/grafana.ini":

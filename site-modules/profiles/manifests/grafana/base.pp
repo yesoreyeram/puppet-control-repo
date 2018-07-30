@@ -15,6 +15,6 @@ class profiles::grafana::base {
       user            => lookup('username'),
       group           => lookup('username'),
       cleanup         => true,
-      require         => File['/opt/puppet/packages'],
+      require         => File['/opt/puppet/packages/'],
   }
 }

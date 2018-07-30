@@ -26,7 +26,7 @@ class profiles::grafana::prime {
       provider => shell,
       command  => "tar -xzvf /opt/puppet/packages/grafana-${grafanaversion}.tar.gz -C /opt/grafana/prime --strip-components=1",
       unless   => "cat /opt/grafana/prime/VERSION | grep ${grafanaversion}",
-      require  => File['/opt/grafana/prime'],
+      require  => File['/opt/grafana/prime/'],
   }
   file { 
     "/opt/grafana/storage/prime/conf/grafana.ini":
