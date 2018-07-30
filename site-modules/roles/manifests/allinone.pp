@@ -4,4 +4,5 @@ class roles::allinone {
   include ::profiles::grafanastack::base
   include ::profiles::grafana::prime
   include ::profiles::grafana::alert
+  include ::profiles::graphite::combined
 }

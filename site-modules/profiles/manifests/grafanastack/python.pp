@@ -3,8 +3,8 @@ class profiles::grafanastack::python {
   class { 'python' :
     version    => 'system',
     pip        => 'present',
-    dev        => 'absent',
-    virtualenv => 'absent',
+    dev        => 'present',
+    virtualenv => 'present',
     gunicorn   => 'absent',
   }
 }
