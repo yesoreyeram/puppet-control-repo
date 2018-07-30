@@ -6,6 +6,13 @@ class profiles::grafanastack::base {
         ensure => present,
         name   => lookup('username'),
   }
+  file {
+    ['/opt/puppet/packages/'] :
+      ensure  => directory,
+      group   => lookup('username'),
+      owner   => lookup('username'),
+      require => User['Grafana User'],
+  }
   include ::profiles::grafanastack::python
   include ::profiles::grafanastack::pip
   include ::profiles::grafanastack::supervisor

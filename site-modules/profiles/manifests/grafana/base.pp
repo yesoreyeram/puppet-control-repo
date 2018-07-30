@@ -1,8 +1,9 @@
 # Class profiles::grafana::base
 class profiles::grafana::base {
+  include ::profiles::grafanastack::base
   $grafanaversion = '5.1.3'
   file {
-    ['/opt/puppet/packages/','/opt/grafana/','/opt/grafana/storage'] :
+    ['/opt/grafana/','/opt/grafana/storage'] :
       ensure  => directory,
       group   => lookup('username'),
       owner   => lookup('username'),
