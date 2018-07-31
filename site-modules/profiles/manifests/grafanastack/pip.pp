@@ -4,11 +4,11 @@ class profiles::grafanastack::pip {
   python::pip { 'pip-pip' :
     ensure  => '18.0',
     pkgname => 'pip',
-    require => Class['Python']
+    require => Class['Python'],
   }
   python::pip { 'pip-setuptools' :
-    ensure  => '40.0',
+    ensure  => '40.0.0',
     pkgname => 'setuptools',
-    require => Class['Python']
-  }  
+    require => Class['Python'],
+  }
 }
