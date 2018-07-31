@@ -11,13 +11,11 @@ class profiles::grafanastack::base {
     })
   }
   notice('Applying Grafana stack base profile')
-  user {
-    'Grafana User' :
+  user { 'Grafana User' :
         ensure => present,
         name   => lookup('username'),
   }
-  file {
-    ['/opt/puppet/packages/'] :
+  file { ['/opt/puppet/packages/'] :
       ensure  => directory,
       group   => lookup('username'),
       owner   => lookup('username'),
@@ -26,6 +24,6 @@ class profiles::grafanastack::base {
   include ::profiles::grafanastack::python
   include ::profiles::grafanastack::pip
   include ::profiles::grafanastack::supervisor
-  #include ::profiles::grafanastack::nginx
-  # include ::profiles::grafanastack::nodejs
+  include ::profiles::grafanastack::nginx
+  #include ::profiles::grafanastack::nodejs
 }
