@@ -1,6 +1,6 @@
-# Class profiles::grafanastack::python
-class profiles::grafanastack::pip {
-  include ::profiles::grafanastack::python
+# Class profiles::grafanastack::base::python
+class profiles::grafanastack::base::pip {
+  include ::profiles::grafanastack::base::python
   python::pip { 'pip-pip' :
     ensure  => '18.0',
     pkgname => 'pip',

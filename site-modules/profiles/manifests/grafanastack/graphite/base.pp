@@ -1,7 +1,7 @@
-# Class: profiles::graphite::base
+# Class: profiles::grafanastack::graphite::base
 #
 #
-class profiles::graphite::base {
+class profiles::grafanastack::graphite::base {
   include ::profiles::grafanastack::base
   $graphiteversion = '1.0.2'
   #region Create required folders

@@ -21,9 +21,11 @@ class profiles::grafanastack::base {
       owner   => lookup('username'),
       require => User['Grafana User'],
   }
-  include ::profiles::grafanastack::python
-  include ::profiles::grafanastack::pip
-  include ::profiles::grafanastack::supervisor
-  include ::profiles::grafanastack::nginx
-  #include ::profiles::grafanastack::nodejs
+  include ::profiles::grafanastack::base::python
+  include ::profiles::grafanastack::base::pip
+  include ::profiles::grafanastack::base::supervisor
+  include ::profiles::grafanastack::base::nginx
+  /*
+  include ::profiles::grafanastack::base::nodejs
+  */
 }

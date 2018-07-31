@@ -1,9 +1,9 @@
-# Class: profiles::grafana::alert
+# Class: profiles::grafanastack::grafana::alert
 #
 #
-class profiles::grafana::alert {
+class profiles::grafanastack::grafana::alert {
   include ::profiles::grafanastack::base
-  include ::profiles::grafana::base
+  include ::profiles::grafanastack::grafana::base
   $grafanaversion = '5.1.3'
   $cfg = {
     server   => {
@@ -11,19 +11,19 @@ class profiles::grafana::alert {
     }
   }
   notify { 'Installing Grafana alert':
-    require => Class['::profiles::grafanastack::base']
+    require => Class['::profiles::grafanastack::grafana::base']
   }
   file {
     ['/opt/grafana/alert/','/opt/grafana/storage/alert/','/opt/grafana/storage/alert/conf'] :
       ensure  => directory,
       group   => lookup('username'),
       owner   => lookup('username'),
-      require => Class['::profiles::grafana::base']
+      require => Class['::profiles::grafanastack::grafana::base']
   }
   mysql::db { 'grafana-alert':
     user     => 'root',
     password => lookup('mysql_password'),
-    require  => Class['::profiles::grafana::base']
+    require  => Class['::profiles::grafanastack::grafana::base']
   }
   exec {
     'Extract Grafana alert':

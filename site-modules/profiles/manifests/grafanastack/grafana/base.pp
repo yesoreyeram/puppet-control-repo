@@ -1,7 +1,7 @@
-# Class profiles::grafana::base
-class profiles::grafana::base {
+# Class profiles::grafanastack::grafana::base
+class profiles::grafanastack::grafana::base {
   include ::profiles::grafanastack::base
-  include ::profiles::grafanastack::mysql
+  include ::profiles::grafanastack::base::mysql
   $grafanaversion = '5.1.3'
   file {
     ['/opt/grafana/','/opt/grafana/storage'] :
@@ -18,6 +18,6 @@ class profiles::grafana::base {
       user    => lookup('username'),
       group   => lookup('username'),
       cleanup => true,
-      require => [File['/opt/puppet/packages/'], Class['::profiles::grafanastack::base'], Class['::profiles::grafanastack::mysql']],
+      require => [File['/opt/puppet/packages/'], Class['::profiles::grafanastack::base'], Class['::profiles::grafanastack::base::mysql']],
   }
 }

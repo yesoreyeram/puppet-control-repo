@@ -1,5 +1,5 @@
 # Class profiles::grafanastack::python
-class profiles::grafanastack::python {
+class profiles::grafanastack::base::python {
   class { 'python' :
     version    => 'system',
     pip        => 'present',

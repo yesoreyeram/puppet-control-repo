@@ -1,9 +1,9 @@
-# Class: profiles::grafana::prime
+# Class: profiles::grafanastack::grafana::prime
 #
 #
-class profiles::grafana::prime {
+class profiles::grafanastack::grafana::prime {
   include ::profiles::grafanastack::base
-  include ::profiles::grafana::base
+  include ::profiles::grafanastack::grafana::base
   $grafanaversion = '5.1.3'
   $cfg = {
     server   => {
@@ -11,19 +11,19 @@ class profiles::grafana::prime {
     }
   }
   notify { 'Installing Grafana prime':
-    require => Class['::profiles::grafanastack::base']
+    require => Class['::profiles::grafanastack::grafana::base']
   }
   file {
     ['/opt/grafana/prime/','/opt/grafana/storage/prime/','/opt/grafana/storage/prime/conf'] :
       ensure  => directory,
       group   => lookup('username'),
       owner   => lookup('username'),
-      require => Class['::profiles::grafana::base']
+      require => Class['::profiles::grafanastack::grafana::base']
   }
   mysql::db { 'grafana-prime':
     user     => 'root',
     password => lookup('mysql_password'),
-    require  => Class['::profiles::grafana::base']
+    require  => Class['::profiles::grafanastack::grafana::base']
   }
   exec {
     'Extract Grafana prime':

@@ -3,7 +3,7 @@ notice("${lookup('welcome')}")
 notice($fqdn)
 
 node 'allinone.dev.vm', 'allinonec7.dev.vm' {
-  include ::roles::allinone
+  include "::roles::grafanastack::allinone"
 }
 
 node default {

@@ -1,6 +1,6 @@
-# Class profiles::grafanastack::supervisor
-class profiles::grafanastack::supervisor {
-  include ::profiles::grafanastack::pip
+# Class profiles::grafanastack::base::supervisor
+class profiles::grafanastack::base::supervisor {
+  include ::profiles::grafanastack::base::pip
   class { 'supervisord':
     unix_socket          => false,
     inet_server          => true,
@@ -9,6 +9,6 @@ class profiles::grafanastack::supervisor {
     inet_auth            => false,
     inet_username        => undef,
     inet_password        => undef,
-    require              => Class['::profiles::grafanastack::pip']
+    require              => Class['::profiles::grafanastack::base::pip']
   }
 }

@@ -1,5 +1,5 @@
 # Class profiles::grafanastack::nodejs
-class profiles::grafanastack::nodejs {
+class profiles::grafanastack::base::nodejs {
   class { 'nodejs':
     version    => 'v8.9.4',
     target_dir => '/bin',
