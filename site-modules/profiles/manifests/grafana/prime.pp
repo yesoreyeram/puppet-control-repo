@@ -20,6 +20,11 @@ class profiles::grafana::prime {
       owner   => lookup('username'),
       require => Class['::profiles::grafana::base']
   }
+  mysql::db { 'grafana-prime':
+    user     => 'root',
+    password => lookup('mysql_password'),
+    require  => Class['::profiles::grafana::base']
+  }
   exec {
     'Extract Grafana prime':
       path     => '/usr/bin:/usr/sbin:/bin',

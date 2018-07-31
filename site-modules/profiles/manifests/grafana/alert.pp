@@ -20,6 +20,11 @@ class profiles::grafana::alert {
       owner   => lookup('username'),
       require => Class['::profiles::grafana::base']
   }
+  mysql::db { 'grafana-alert':
+    user     => 'root',
+    password => lookup('mysql_password'),
+    require  => Class['::profiles::grafana::base']
+  }
   exec {
     'Extract Grafana alert':
       path     => '/usr/bin:/usr/sbin:/bin',
