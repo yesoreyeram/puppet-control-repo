@@ -1,6 +1,7 @@
 ---
   welcome : "Hello Welcome to Puppet Control Repository - From common.yaml"
   username : "_monitoring"
-  enhancer_packages : ['wget','sudo','openssh-server','curl','nano','git','unzip','jq','lvm2']
+  enhancer_packages : ['wget','sudo','openssh-server','curl','nano','git','unzip','lvm2']
   privateip : '192.168.50.4'
   mysql_password : 'mysqlStrongPasswords'
+  grafana_version : '5.1.3'
