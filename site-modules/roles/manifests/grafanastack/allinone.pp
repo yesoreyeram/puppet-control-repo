@@ -22,7 +22,7 @@ class roles::grafanastack::allinone {
   Class['::profiles::gstack::base::pip']        -> Class['::profiles::gstack::base::setuptools']
   Class['::profiles::gstack::base::pip']        -> Class['::profiles::gstack::base::supervisor']
   Class['::profiles::gstack::base::supervisor'] -> Class['::profiles::gstack::grafana::prime']
-  Class['::profiles::gstack::base::supervisor'] -> Class['::profiles::gstack::grafana::alert']  
+  Class['::profiles::gstack::base::supervisor'] -> Class['::profiles::gstack::grafana::alert']
   Class['::profiles::gstack::base::supervisor'] -> Class['::profiles::gstack::graphite::allinone']
   #endregion
 }
