@@ -1,5 +1,5 @@
-# Class roles::allinone 
-class roles::grafanastack::allinone {
+# Class roles::gstack::allinone 
+class roles::gstack::allinone {
   #region Profiles
   include ::profiles::base
   include ::profiles::gstack::base
