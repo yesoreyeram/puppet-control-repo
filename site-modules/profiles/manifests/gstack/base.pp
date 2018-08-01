@@ -20,9 +20,6 @@ class profiles::gstack::base {
   #region Package directories
   file { ['/opt/puppet/packages/'] :
       ensure  => directory,
-      group   => lookup('username'),
-      owner   => lookup('username'),
-      require => User['grafana_user'],
   }
   #endregion
 }
