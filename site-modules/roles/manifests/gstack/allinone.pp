@@ -24,5 +24,6 @@ class roles::gstack::allinone {
   Class['::profiles::gstack::base::supervisor'] -> Class['::profiles::gstack::grafana::prime']
   Class['::profiles::gstack::base::supervisor'] -> Class['::profiles::gstack::grafana::alert']
   Class['::profiles::gstack::base::supervisor'] -> Class['::profiles::gstack::graphite::allinone']
+  Class['::profiles::gstack::base::setuptools'] -> Class['::profiles::gstack::graphite::allinone']
   #endregion
 }
