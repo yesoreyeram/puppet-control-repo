@@ -1,5 +1,13 @@
-*.log
+# Vagrant Files
 .vagrant/
+
+# Log Files
+*.log
+logs/
+
+# Development files
 public/
+
+# Package & Module Caching for local development
 modules/
 packages/
