@@ -5,3 +5,50 @@
   privateip : '192.168.50.4'
   mysql_password : 'mysqlStrongPasswords'
   grafana_version : '5.1.3'
+  profiles::gstack::graphite::allinone::graphite_web::local_settings :
+    SECRET_KEY  : 'aldskfjbskjdgfha;sbdjvwpirugfbw;sJVPEIRUBVSJK.LVBpaidbflv'
+    TIME_ZONE   : 'Europe/London'
+    WHISPER_DIR : "/opt/data/graphite/storage/whisper/"
+    DATABASES :
+      default :
+        NAME : '/opt/data/graphite/storage/graphite.db'
+        ENGINE : '/opt/data/graphite/storage/graphite.db'
+        USER : ''
+        PASSWORD : ''
+        HOST : ''
+        PORT : ''
+    ALLOWED_HOSTS :
+      - '*'
+    CARBONLINK_HOSTS :
+      - '127.0.0.1:7201:a'
+      - '127.0.0.1:7201:b'
+    CARBONLINK_RETRY_DELAY : 0
+    CARBONLINK_TIMEOUT : 1.0
+    CLUSTER_SERVERS:
+      - '127.0.0.1:8888'
+    POOL_WORKERS : 2
+    POOL_WORKERS_PER_BACKEND : 500
+    REMOTE_EXCLUDE_LOCAL : False
+    REMOTE_FETCH_TIMEOUT : 10.0
+    REMOTE_FIND_TIMEOUT : 10.0
+    REMOTE_RENDER_CONNECT_TIMEOUT : 3.0
+    REMOTE_RETRY_DELAY : 10
+    RENDERING_HOSTS :
+      - '127.0.0.1:8888'
+    REPLICATION_FACTOR : 1
+    USE_WORKER_POOL : True
+    CACHES : 
+      default :
+        BACKEND : 'jango.core.cache.backends.memcached.MemcachedCache'
+        LOCATION : '127.0.0.1:11211'
+    DEFAULT_CACHE_DURATION : 60
+    MEMCACHE_HOSTS :
+      - '127.0.0.1:11211'
+    MEMCACHE_KEY_PREFIX : 'graphite'
+    MAX_TAG_LENGTH : 100
+    TAGDB : 'graphite.tags.localdatabase.LocalDatabaseTagDB'
+    TAGDB_CACHE_DURATION : 60
+    TAGDB_AUTOCOMPLETE_LIMIT : 100
+    DEBUG : False
+    LOG_ROTATION : True
+    LOG_ROTATION_COUNT : 3

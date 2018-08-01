@@ -1,7 +1,10 @@
 # Class profiles::gstack::graphite::allinone
 class profiles::gstack::graphite::allinone (
-
+  Hash $common_settings = lookup('profiles::gstack::graphite::allinone::graphite_web::local_settings'),
 ){
   include ::profiles::gstack::graphite::base
-  notice('Apply Graphite All in one node profile')
+  file { '/opt/graphite/webapp/graphite/local_settings.py':
+    ensure  => 'present',
+    content => template('profiles/gstack/opt/graphite/webapp/graphite/local_settings.py.erb'),
+  }
 }
