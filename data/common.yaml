@@ -22,6 +22,19 @@
       '# SAMPLE KEY': 'SAMPLE VALUE'
     aggregator:
       '# SAMPLE KEY': 'SAMPLE VALUE'
+  profiles::gstack::graphite::allinone::graphite::storage_schemas:
+    carbon :
+      pattern : '^carbon\.'
+      retentions : '60:90d'
+    prod_default :
+      pattern : '^prod\.'
+      retentions : '60:90d'
+    backoffice_default :
+      pattern : '^BO\.'
+      retentions : '300:90d'
+    tags :
+      pattern : '^tags\.'
+      retentions : '1:1'
   profiles::gstack::graphite::allinone::graphite::whitelist_conf_settings :
     - "^BO.*"
     - "^DYNS.*"

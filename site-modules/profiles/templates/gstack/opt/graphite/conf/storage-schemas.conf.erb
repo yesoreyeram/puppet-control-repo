@@ -1,0 +1,11 @@
+<%- @storage_schemas.keys.sort.each do |key|
+    if not @storage_schemas[key].is_a?(Hash) -%>
+<%= key %> = <%= @storage_schemas[key] %>
+    <%- end
+end -%>
+<%- @storage_schemas.keys.sort.each do |key|
+  if @storage_schemas[key].is_a?(Hash) -%>
+[<%= key %>]<%- @storage_schemas[key].keys.sort.each do |valkey| -%>
+<%= valkey %> = <%= @storage_schemas[key][valkey] %><%- end -%>
+<%- end
+end -%>
