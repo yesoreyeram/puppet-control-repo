@@ -1,0 +1,6 @@
+<%- for @key in @carbon_conf_settings.keys 
+    if @carbon_conf_settings[@key].is_a?(Hash) -%>[<%= @key %>]<%- for @nestedkey in @carbon_conf_settings[@key].keys -%>
+<%= @nestedkey %> = <%= @carbon_conf_settings[@key][@nestedkey] %><%- end -%>
+
+<%- end 
+    end -%>
