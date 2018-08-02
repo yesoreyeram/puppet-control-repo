@@ -8,40 +8,48 @@ class profiles::gstack::graphite::allinone (
   Tuple   $whitelist_conf_settings   = lookup('profiles::gstack::graphite::allinone::graphite::whitelist_conf_settings'),
 ){
   include ::profiles::gstack::graphite::base
-  file { '/opt/graphite/webapp/graphite/local_settings.py':
+  file { '/opt/graphite/webapp/graphite/local_settings.py' :
     ensure  => file,
     content => template('profiles/gstack/graphite/webapp/local_settings.py.erb'),
   }
-  file { '/opt/graphite/conf/wsgi.py':
+  file { '/opt/graphite/conf/wsgi.py' :
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/graphite.wsgi.py.erb'),
   }
-  file { '/opt/graphite/conf/carbon.conf':
+  file { '/opt/graphite/conf/carbon.conf' :
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/carbon.conf.erb'),
   }
-  file { '/opt/graphite/conf/storage-schemas.conf':
+  file { '/opt/graphite/conf/storage-schemas.conf' :
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/storage-schemas.conf.erb'),
   }
-  file { '/opt/graphite/conf/storage-aggregation.conf':
+  file { '/opt/graphite/conf/storage-aggregation.conf' :
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/storage-aggregation.conf.erb'),
   }
-  file { '/opt/graphite/conf/relay-rules.conf':
+  file { '/opt/graphite/conf/relay-rules.conf' :
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/relay-rules.conf.erb'),
   }
-  file { '/opt/graphite/conf/whitelist.conf':
+  file { '/opt/graphite/conf/whitelist.conf' :
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/whitelist.conf.erb'),
   }
-  file { '/opt/graphite/conf/dashboard.conf':
+  file { '/opt/graphite/conf/dashboard.conf' :
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/dashboard.conf.erb'),
   }
-  file { '/opt/graphite/conf/graphTemplates.conf':
+  file { '/opt/graphite/conf/graphTemplates.conf' :
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/graphTemplates.conf.erb'),
+  }
+  exec { 'Graphite-Web-Django-Admin-Migrate' :
+      path        => '/usr/bin:/usr/sbin:/bin',
+      provider    => shell,
+      environment => ['PYTHONPATH=/opt/graphite/webapp/'],
+      command     => 'django-admin migrate  --settings=graphite.settings',
+      onlyif      => ['PYTHONPATH=/opt/graphite/webapp/ django-admin.py showmigrations --settings=graphite.settings | grep "\[\ \]"'],
+      require     => [File['/opt/graphite/conf/wsgi.py'],File['/opt/graphite/webapp/graphite/local_settings.py']],
   }
 }

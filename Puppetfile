@@ -17,5 +17,7 @@ mod 'puppet-python', '2.1.0'
 mod 'ajcrowe-supervisord', '0.6.1'
 mod 'saz-memcached', '3.3.0'
 mod 'stahnma-epel', '1.3.1'
-mod 'willdurand-nodejs', '2.0.2'
+mod 'willdurand-nodejs',
+  :git => 'https://github.com/willdurand/puppet-nodejs.git',
+  :ref => 'f03298f04c8e85138e75109edeb9a94071c6a07c'
 mod 'dwerder-graphite', '7.3.0'

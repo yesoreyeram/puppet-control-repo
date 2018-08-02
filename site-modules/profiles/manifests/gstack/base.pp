@@ -18,7 +18,7 @@ class profiles::gstack::base {
   }
   #endregion
   #region Package directories
-  file { ['/opt/puppet/packages/'] :
+  file { ['/opt/puppet/packages/','/opt/data/'] :
       ensure  => directory,
   }
   #endregion

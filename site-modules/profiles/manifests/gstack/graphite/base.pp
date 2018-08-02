@@ -6,8 +6,22 @@ class profiles::gstack::graphite::base (
   include ::profiles::gstack::base::setuptools
   include ::profiles::gstack::base::supervisor
   $graphiteversion = '1.0.2'
+  #region Install Mandatory Packages
+  ensure_packages(['cairo-devel'])
+  file { '/opt/graphite/requirements.txt' :
+    ensure  => file,
+    content => template('profiles/gstack/graphite/conf/requirements.txt.erb')
+  }
+  exec { 'Install-Graphite-Pip-Requirements' :
+    path        => '/usr/bin:/usr/sbin:/bin',
+    provider    => shell,
+    command     => 'pip install -r /opt/graphite/requirements.txt',
+    subscribe   => File['/opt/graphite/requirements.txt'],
+    refreshonly => true
+  }
+  #endregion
   #region Create required folders
-  file { ['/opt/graphite/','/opt/graphite/storage'] :
+  file { ['/opt/graphite/','/opt/graphite/storage','/opt/data/graphite','/opt/data/graphite/storage/'] :
       ensure  => directory,
       group   => lookup('username'),
       owner   => lookup('username'),
