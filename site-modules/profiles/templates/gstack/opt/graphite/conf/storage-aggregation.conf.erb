@@ -1,0 +1,6 @@
+<%- @storage_aggregation.keys.sort.each do |key|
+  if @storage_aggregation[key].is_a?(Hash) -%>
+[<%= key %>]<%- @storage_aggregation[key].keys.each do |valkey| -%>
+<%= valkey %> = <%= @storage_aggregation[key][valkey] %><%- end -%>
+<%- end
+end -%>
