@@ -33,7 +33,7 @@ class profiles::gstack::grafana::alert {
   file {
     '/opt/grafana/storage/alert/conf/grafana.ini':
         ensure  => file,
-        content => template('grafana/config.ini.erb'),
+        content => template('profiles/gstack/grafana/config.ini.erb'),
         owner   => lookup('username'),
         group   => lookup('username'),
         require => File['/opt/grafana/storage/alert/conf/']

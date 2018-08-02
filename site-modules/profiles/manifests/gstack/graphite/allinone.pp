@@ -9,26 +9,26 @@ class profiles::gstack::graphite::allinone (
   include ::profiles::gstack::graphite::base
   file { '/opt/graphite/webapp/graphite/local_settings.py':
     ensure  => file,
-    content => template('profiles/gstack/opt/graphite/webapp/graphite/local_settings.py.erb'),
+    content => template('profiles/gstack/graphite/webapp/local_settings.py.erb'),
   }
   file { '/opt/graphite/conf/wsgi.py':
     ensure  => file,
-    content => template('profiles/gstack/opt/graphite/conf/graphite.wsgi.py.erb'),
+    content => template('profiles/gstack/graphite/conf/graphite.wsgi.py.erb'),
   }
   file { '/opt/graphite/conf/carbon.conf':
     ensure  => file,
-    content => template('profiles/gstack/opt/graphite/conf/carbon.conf.erb'),
+    content => template('profiles/gstack/graphite/conf/carbon.conf.erb'),
   }
   file { '/opt/graphite/conf/storage-schemas.conf':
     ensure  => file,
-    content => template('profiles/gstack/opt/graphite/conf/storage-schemas.conf.erb'),
+    content => template('profiles/gstack/graphite/conf/storage-schemas.conf.erb'),
   }
   file { '/opt/graphite/conf/storage-aggregation.conf':
     ensure  => file,
-    content => template('profiles/gstack/opt/graphite/conf/storage-aggregation.conf.erb'),
+    content => template('profiles/gstack/graphite/conf/storage-aggregation.conf.erb'),
   }
   file { '/opt/graphite/conf/whitelist.conf':
     ensure  => file,
-    content => template('profiles/gstack/opt/graphite/conf/whitelist.conf.erb'),
+    content => template('profiles/gstack/graphite/conf/whitelist.conf.erb'),
   }
 }

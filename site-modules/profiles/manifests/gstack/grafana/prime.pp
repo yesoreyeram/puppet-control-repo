@@ -33,7 +33,7 @@ class profiles::gstack::grafana::prime {
   file {
     '/opt/grafana/storage/prime/conf/grafana.ini':
         ensure  => file,
-        content => template('grafana/config.ini.erb'),
+        content => template('profiles/gstack/grafana/config.ini.erb'),
         owner   => lookup('username'),
         group   => lookup('username'),
         require => File['/opt/grafana/storage/prime/conf/']
