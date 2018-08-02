@@ -40,17 +40,17 @@ class profiles::gstack::grafana::alert {
   }
   supervisord::program {
     'grafana-alert':
-      command => '/opt/grafana/alert/bin/grafana-server --homepath=/opt/grafana/alert/ --config=/opt/grafana/storage/alert/conf/grafana.ini &',
+      command   => '/opt/grafana/alert/bin/grafana-server --homepath=/opt/grafana/alert/ --config=/opt/grafana/storage/alert/conf/grafana.ini &',
       subscribe => File['/opt/grafana/storage/alert/conf/grafana.ini'],
-      require => [Exec['Extract Grafana alert'], File['/opt/grafana/storage/alert/conf/grafana.ini'] ]
+      require   => [Exec['Extract Grafana alert'], File['/opt/grafana/storage/alert/conf/grafana.ini'] ]
   }
   exec {
     'restart-supervisord-alert' :
-      path     => '/usr/bin:/usr/sbin:/bin',
-      provider => shell,
-      command  => "supervisorctl restart grafana-alert",
-      subscribe => [File['/opt/grafana/storage/alert/conf/grafana.ini']],
-      require  => Supervisord::Program['grafana-alert'],
+      path        => '/usr/bin:/usr/sbin:/bin',
+      provider    => shell,
+      command     => 'supervisorctl restart grafana-alert',
+      subscribe   => [File['/opt/grafana/storage/alert/conf/grafana.ini']],
+      require     => Supervisord::Program['grafana-alert'],
       refreshonly => true,
   }
 }

@@ -40,17 +40,17 @@ class profiles::gstack::grafana::prime {
   }
   supervisord::program {
     'grafana-prime':
-      command => '/opt/grafana/prime/bin/grafana-server --homepath=/opt/grafana/prime/ --config=/opt/grafana/storage/prime/conf/grafana.ini &',
+      command   => '/opt/grafana/prime/bin/grafana-server --homepath=/opt/grafana/prime/ --config=/opt/grafana/storage/prime/conf/grafana.ini &',
       subscribe => File['/opt/grafana/storage/prime/conf/grafana.ini'],
-      require => [Exec['Extract Grafana prime'], File['/opt/grafana/storage/prime/conf/grafana.ini'] ]
+      require   => [Exec['Extract Grafana prime'], File['/opt/grafana/storage/prime/conf/grafana.ini'] ]
   }
   exec {
     'restart-supervisord-prime' :
-      path     => '/usr/bin:/usr/sbin:/bin',
-      provider => shell,
-      command  => "supervisorctl restart grafana-prime",
-      subscribe => [File['/opt/grafana/storage/prime/conf/grafana.ini']],
-      require  => Supervisord::Program['grafana-prime'],
+      path        => '/usr/bin:/usr/sbin:/bin',
+      provider    => shell,
+      command     => 'supervisorctl restart grafana-prime',
+      subscribe   => [File['/opt/grafana/storage/prime/conf/grafana.ini']],
+      require     => Supervisord::Program['grafana-prime'],
       refreshonly => true,
   }
 }
