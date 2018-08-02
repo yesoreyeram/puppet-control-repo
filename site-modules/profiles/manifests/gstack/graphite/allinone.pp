@@ -36,4 +36,12 @@ class profiles::gstack::graphite::allinone (
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/whitelist.conf.erb'),
   }
+  file { '/opt/graphite/conf/dashboard.conf':
+    ensure  => file,
+    content => template('profiles/gstack/graphite/conf/dashboard.conf.erb'),
+  }
+  file { '/opt/graphite/conf/graphTemplates.conf':
+    ensure  => file,
+    content => template('profiles/gstack/graphite/conf/graphTemplates.conf.erb'),
+  }
 }
