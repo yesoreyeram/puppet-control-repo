@@ -8,6 +8,7 @@ class profiles::gstack::graphite::allinone (
   Tuple   $whitelist_conf_settings   = lookup('profiles::gstack::graphite::allinone::graphite::whitelist_conf_settings'),
 ){
   include ::profiles::gstack::graphite::base
+  include ::profiles::gstack::base::memcached
   file { '/opt/graphite/webapp/graphite/local_settings.py' :
     ensure  => file,
     content => template('profiles/gstack/graphite/webapp/local_settings.py.erb'),
