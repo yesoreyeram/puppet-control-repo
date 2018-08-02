@@ -4,7 +4,11 @@ class profiles::gstack::graphite::allinone (
 ){
   include ::profiles::gstack::graphite::base
   file { '/opt/graphite/webapp/graphite/local_settings.py':
-    ensure  => 'present',
+    ensure  => file,
     content => template('profiles/gstack/opt/graphite/webapp/graphite/local_settings.py.erb'),
+  }
+  file { '/opt/graphite/conf/wsgi.py':
+    ensure  => file,
+    content => template('profiles/gstack/opt/graphite/conf/graphite.wsgi.py.erb'),
   }
 }
