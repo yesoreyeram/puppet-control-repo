@@ -1,0 +1,6 @@
+<%- @uwsgi_config.keys.each do |key|
+  if @uwsgi_config[key].is_a?(Hash) -%>
+[<%= key %>]<%- @uwsgi_config[key].keys.sort.each do |valkey| -%>
+<%= valkey %> = <%= @uwsgi_config[key][valkey] %><%- end -%>
+  <%- end
+end -%>

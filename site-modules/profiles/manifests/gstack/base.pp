@@ -20,6 +20,8 @@ class profiles::gstack::base {
   #region Package directories
   file { ['/opt/puppet/packages/','/opt/data/','/opt/data/log/'] :
       ensure  => directory,
+      owner   => lookup('username'),
+      group   => lookup('username'),
   }
   #endregion
 }

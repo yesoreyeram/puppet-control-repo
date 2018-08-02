@@ -186,3 +186,26 @@
     DEBUG : False
     LOG_ROTATION : True
     LOG_ROTATION_COUNT : 3
+  profiles::gstack::graphite::allinone::graphite_web::uwsgi_config:
+    'uwsgi' :
+      vacuum : true
+    'program:uwsgi' :
+      uid : "%{lookup('profiles::gstack::general_settings::username')}"
+      gid : "%{lookup('profiles::gstack::general_settings::username')}"
+      listen : 4096
+      master : true
+      workers : 8
+      socket : 127.0.0.1:5000
+      chown-socket : "%{lookup('profiles::gstack::general_settings::username')}:%{lookup('profiles::gstack::general_settings::username')}"
+      chmod-socket : 660
+      vacuum : true
+      plugins : python
+      chdir : /opt/graphite/conf
+      module : wsgi:application
+      buffer-size : 65536
+      threads : 2
+      harakiri : 300
+      http-timeout : 300
+      max-requests : 5000
+      log-maxsize : 104857600
+      logto : /opt/data/log/uwsgi/graphite.log
