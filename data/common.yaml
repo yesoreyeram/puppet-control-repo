@@ -22,6 +22,23 @@
       '# SAMPLE KEY': 'SAMPLE VALUE'
     aggregator:
       '# SAMPLE KEY': 'SAMPLE VALUE'
+  profiles::gstack::graphite::allinone::graphite::whitelist_conf_settings :
+    - "^BO.*"
+    - "^DYNS.*"
+    - "^HEALTHCHECK.*"
+    - "^HEARTBEAT.*"
+    - "^MATFLO.*"
+    - "^MERRET.*"
+    - "^PROD.*"
+    - "^prod.*"
+    - "^RP.*"
+    - "^SITECORE.*"
+    - "^SiteCore.*"
+    - "^TAGS.*"
+    - "^tags.*"
+    - "^test.*"
+    - "^foo.*"
+    - "^monitoring.*"
   profiles::gstack::graphite::allinone::graphite_web::local_settings :
     SECRET_KEY  : 'aldskfjbskjdgfha;sbdjvwpirugfbw;sJVPEIRUBVSJK.LVBpaidbflv'
     TIME_ZONE   : 'Europe/London'

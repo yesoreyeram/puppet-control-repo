@@ -13,7 +13,6 @@ mod 'puppet-staging', '3.2.0'
 mod 'puppet-grafana', '4.5.0'
 mod 'puppet-nginx', '0.13.0'
 mod 'puppet-python', '2.1.0'
-mod 'puppet-nodejs', '5.0.0'
 
 mod 'ajcrowe-supervisord', '0.6.1'
 mod 'saz-memcached', '3.3.0'
