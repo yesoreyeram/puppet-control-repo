@@ -66,4 +66,4 @@ class profiles::gstack::graphite::base (
     require     => [ Archive["/opt/puppet/packages/graphite-web-${graphiteversion}.tar.gz"] , Class['::profiles::gstack::base::setuptools'] ],
   }
   #endregion
-} 
+}
