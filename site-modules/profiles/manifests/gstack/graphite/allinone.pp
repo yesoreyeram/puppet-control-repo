@@ -4,6 +4,7 @@ class profiles::gstack::graphite::allinone (
   Hash    $carbon_conf_settings      = lookup('profiles::gstack::graphite::allinone::graphite::carbon_conf_settings'),
   Hash    $storage_schemas           = lookup('profiles::gstack::graphite::allinone::graphite::storage_schemas'),
   Hash    $storage_aggregation       = lookup('profiles::gstack::graphite::allinone::graphite::storage_aggregation'),
+  Hash    $relay_rules               = lookup('profiles::gstack::graphite::allinone::graphite::relay_rules'),
   Tuple   $whitelist_conf_settings   = lookup('profiles::gstack::graphite::allinone::graphite::whitelist_conf_settings'),
 ){
   include ::profiles::gstack::graphite::base
@@ -26,6 +27,10 @@ class profiles::gstack::graphite::allinone (
   file { '/opt/graphite/conf/storage-aggregation.conf':
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/storage-aggregation.conf.erb'),
+  }
+  file { '/opt/graphite/conf/relay-rules.conf':
+    ensure  => file,
+    content => template('profiles/gstack/graphite/conf/relay-rules.conf.erb'),
   }
   file { '/opt/graphite/conf/whitelist.conf':
     ensure  => file,

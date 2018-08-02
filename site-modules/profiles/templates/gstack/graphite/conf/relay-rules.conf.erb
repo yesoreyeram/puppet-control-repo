@@ -1,0 +1,6 @@
+<%- @relay_rules.keys.sort.each do |key|
+  if @relay_rules[key].is_a?(Hash) -%>
+[<%= key %>]<%- @relay_rules[key].keys.each do |valkey| -%>
+<%= valkey %> = <%= @relay_rules[key][valkey] %><%- end -%>
+<%- end
+end -%>

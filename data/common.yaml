@@ -52,6 +52,10 @@
     tags :
       pattern : '^tags\.'
       retentions : '1:1'
+  profiles::gstack::graphite::allinone::graphite::relay_rules:
+    default:
+      default: 'True'
+      destinations : '127.0.0.1:2204:a, 127.0.0.1:2214:b'
   profiles::gstack::graphite::allinone::graphite::whitelist_conf_settings :
     - "^BO.*"
     - "^DYNS.*"
