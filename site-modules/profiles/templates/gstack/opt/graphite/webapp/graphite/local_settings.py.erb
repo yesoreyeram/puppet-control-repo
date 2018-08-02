@@ -1,16 +1,16 @@
-<%- for @key in @common_settings.keys 
-    if !!@common_settings[@key] == @common_settings[@key] -%>
-<%= @key %> = <%= @common_settings[@key] ? 'True' : 'False' %>
-<%- elsif @common_settings[@key].is_a?(String) -%>
-<%= @key %> = '<%= @common_settings[@key] %>'
-<%- elsif @common_settings[@key].is_a?(Numeric) -%>
-<%= @key %> = <%= @common_settings[@key] %>
-<%- elsif @common_settings[@key].is_a?(Array) -%>
-<%= @key %> = ['<%= @common_settings[@key].join("','") %>']
-<%- elsif @common_settings[@key].is_a?(Hash) -%>
-<%= @key %> = {<%- for @nestedkey in @common_settings[@key].keys -%>
-    '<%= @nestedkey %>' : {<%- for @doublenestedkey in @common_settings[@key][@nestedkey].keys -%>
-            '<%= @doublenestedkey %>' : '<%= @common_settings[@key][@nestedkey][@doublenestedkey] %>',<%- end -%>
+<%- for @key in @grweb_local_settings.keys 
+    if !!@grweb_local_settings[@key] == @grweb_local_settings[@key] -%>
+<%= @key %> = <%= @grweb_local_settings[@key] ? 'True' : 'False' %>
+<%- elsif @grweb_local_settings[@key].is_a?(String) -%>
+<%= @key %> = '<%= @grweb_local_settings[@key] %>'
+<%- elsif @grweb_local_settings[@key].is_a?(Numeric) -%>
+<%= @key %> = <%= @grweb_local_settings[@key] %>
+<%- elsif @grweb_local_settings[@key].is_a?(Array) -%>
+<%= @key %> = ['<%= @grweb_local_settings[@key].join("','") %>']
+<%- elsif @grweb_local_settings[@key].is_a?(Hash) -%>
+<%= @key %> = {<%- for @nestedkey in @grweb_local_settings[@key].keys -%>
+    '<%= @nestedkey %>' : {<%- for @doublenestedkey in @grweb_local_settings[@key][@nestedkey].keys -%>
+            '<%= @doublenestedkey %>' : '<%= @grweb_local_settings[@key][@nestedkey][@doublenestedkey] %>',<%- end -%>
     }<%- end -%>
 }
 <%- end 
