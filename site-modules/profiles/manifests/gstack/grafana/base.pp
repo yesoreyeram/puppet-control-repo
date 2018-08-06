@@ -1,4 +1,5 @@
-class profiles::gstack::grafana::base {  
+# Class profiles::gstack::grafana::base
+class profiles::gstack::grafana::base {
   include ::profiles::gstack::base
   include ::profiles::gstack::base::mysql
   $grafanaversion = lookup('grafana_version')

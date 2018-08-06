@@ -53,4 +53,13 @@ class profiles::gstack::grafana::alert {
       require     => Supervisord::Program['grafana-alert'],
       refreshonly => true,
   }
+  nginx::resource::upstream { 'grafana_alert':
+    members => [
+      'localhost:3004',
+    ],
+  }
+  nginx::resource::server { 'localhost':
+    listen_port => 6000,
+    proxy       => 'http://grafana_alert',
+  }
 }

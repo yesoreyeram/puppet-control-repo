@@ -3,7 +3,7 @@ class profiles::gstack::base::supervisor {
   include profiles::gstack::base
   include ::profiles::gstack::base::pip
   file { '/opt/data/log/supervisor/' :
-    ensure => directory,
+    ensure  => directory,
     require => File['/opt/data/log/']
   }
   class { 'supervisord' :

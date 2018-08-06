@@ -5,6 +5,7 @@ class profiles::gstack::grafana::prime {
   include ::profiles::gstack::base
   include ::profiles::gstack::grafana::base
   $grafanaversion =  lookup('grafana_version')
+  $command = '/opt/grafana/prime/bin/grafana-server --homepath=/opt/grafana/prime/ --config=/opt/grafana/storage/prime/conf/grafana.ini &'
   $cfg = {
     server   => {
       http_port     => 3003,
@@ -40,7 +41,7 @@ class profiles::gstack::grafana::prime {
   }
   supervisord::program {
     'grafana-prime':
-      command   => '/opt/grafana/prime/bin/grafana-server --homepath=/opt/grafana/prime/ --config=/opt/grafana/storage/prime/conf/grafana.ini &',
+      command   => $command,
       subscribe => File['/opt/grafana/storage/prime/conf/grafana.ini'],
       require   => [Exec['Extract Grafana prime'], File['/opt/grafana/storage/prime/conf/grafana.ini'] ]
   }

@@ -55,32 +55,32 @@ class profiles::gstack::graphite::allinone (
   }
   supervisord::program {
     'carbon-cache-a':
-      command   => '/opt/graphite/bin/carbon-cache.py --instance=a --debug start',
+      command        => '/opt/graphite/bin/carbon-cache.py --instance=a --debug start',
       stdout_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
       stderr_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
-      user => lookup('username'),
-      autostart => true,
-      autorestart => true,
-      stopsignal => 'QUIT',
+      user           => lookup('username'),
+      autostart      => true,
+      autorestart    => true,
+      stopsignal     => 'QUIT',
   }
   supervisord::program {
     'carbon-cache-b':
-      command   => '/opt/graphite/bin/carbon-cache.py --instance=b --debug start',
+      command        => '/opt/graphite/bin/carbon-cache.py --instance=b --debug start',
       stdout_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
       stderr_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
-      user => lookup('username'),
-      autostart => true,
-      autorestart => true,
-      stopsignal => 'QUIT',
-  }  
+      user           => lookup('username'),
+      autostart      => true,
+      autorestart    => true,
+      stopsignal     => 'QUIT',
+  }
   supervisord::program {
     'carbon-relay-a':
-      command   => '/opt/graphite/bin/carbon-relay.py --instance=a --debug start',
+      command        => '/opt/graphite/bin/carbon-relay.py --instance=a --debug start',
       stdout_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
       stderr_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
-      user => lookup('username'),
-      autostart => true,
-      autorestart => true,
-      stopsignal => 'QUIT',
+      user           => lookup('username'),
+      autostart      => true,
+      autorestart    => true,
+      stopsignal     => 'QUIT',
   }
 }
