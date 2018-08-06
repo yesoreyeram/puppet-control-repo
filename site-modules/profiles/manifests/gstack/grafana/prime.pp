@@ -1,26 +1,26 @@
 # Class: profiles::gstack::grafana::prime
 #
 #
-class profiles::gstack::grafana::prime {
+class profiles::gstack::grafana::prime (
+  String $grafanauser     = lookup('profiles::gstack::general_settings::username'),
+  String $grafanaversion  = lookup('profiles::gstack::grafana::version'),
+  String $supervisor_cmd  = lookup('profiles::gstack::grafana::prime::command'),
+  Hash   $cfg             = lookup('profiles::gstack::grafana::prime::cfg'),
+  String $mysql_username  = lookup('profiles::gstack::mysql::root_username'),
+  String $mysql_password  = lookup('profiles::gstack::mysql::root_password'),
+) {
   include ::profiles::gstack::base
   include ::profiles::gstack::grafana::base
-  $grafanaversion =  lookup('grafana_version')
-  $command = '/opt/grafana/prime/bin/grafana-server --homepath=/opt/grafana/prime/ --config=/opt/grafana/storage/prime/conf/grafana.ini &'
-  $cfg = {
-    server   => {
-      http_port     => 3003,
-    }
-  }
   file {
     ['/opt/grafana/prime/','/opt/grafana/storage/prime/','/opt/grafana/storage/prime/conf'] :
       ensure  => directory,
-      group   => lookup('username'),
-      owner   => lookup('username'),
+      group   => $grafanauser,
+      owner   => $grafanauser ,
       require => Class['::profiles::gstack::grafana::base']
   }
   mysql::db { 'grafana-prime':
-    user     => 'root',
-    password => lookup('mysql_password'),
+    user     => $mysql_username,
+    password => $mysql_password,
     require  => Class['::profiles::gstack::grafana::base']
   }
   exec {
@@ -35,13 +35,13 @@ class profiles::gstack::grafana::prime {
     '/opt/grafana/storage/prime/conf/grafana.ini':
         ensure  => file,
         content => template('profiles/gstack/grafana/config.ini.erb'),
-        owner   => lookup('username'),
-        group   => lookup('username'),
+        owner   => $grafanauser,
+        group   => $grafanauser,
         require => File['/opt/grafana/storage/prime/conf/']
   }
   supervisord::program {
     'grafana-prime':
-      command   => $command,
+      command   => $supervisor_cmd,
       subscribe => File['/opt/grafana/storage/prime/conf/grafana.ini'],
       require   => [Exec['Extract Grafana prime'], File['/opt/grafana/storage/prime/conf/grafana.ini'] ]
   }

@@ -1,6 +1,6 @@
 # Class profiles::gstack::graphite::base
 class profiles::gstack::graphite::base (
-
+  String  $graphiteuser               = lookup('profiles::gstack::general_settings::username'),
 ){
   include ::profiles::gstack::base
   include ::profiles::gstack::base::setuptools
@@ -26,8 +26,8 @@ class profiles::gstack::graphite::base (
   #region Create required folders
   file { ['/opt/graphite/','/opt/graphite/storage','/opt/data/graphite','/opt/data/graphite/storage/'] :
       ensure  => directory,
-      group   => lookup('username'),
-      owner   => lookup('username'),
+      group   => $graphiteuser,
+      owner   => $graphiteuser,
       require => User['grafana_user'],
   }
   #endregion
@@ -36,8 +36,8 @@ class profiles::gstack::graphite::base (
       ensure  => present,
       extract => false,
       source  => "https://github.com/graphite-project/whisper/tarball/${graphiteversion}",
-      user    => lookup('username'),
-      group   => lookup('username'),
+      user    => $graphiteuser,
+      group   => $graphiteuser,
       cleanup => true,
       require => File['/opt/puppet/packages/'],
   }
@@ -45,8 +45,8 @@ class profiles::gstack::graphite::base (
       ensure  => present,
       extract => false,
       source  => "https://github.com/graphite-project/carbon/tarball/${graphiteversion}",
-      user    => lookup('username'),
-      group   => lookup('username'),
+      user    => $graphiteuser,
+      group   => $graphiteuser,
       cleanup => true,
       require => File['/opt/puppet/packages/'],
   }
@@ -54,8 +54,8 @@ class profiles::gstack::graphite::base (
       ensure  => present,
       extract => false,
       source  => "https://github.com/graphite-project/graphite-web/tarball/${graphiteversion}",
-      user    => lookup('username'),
-      group   => lookup('username'),
+      user    => $graphiteuser,
+      group   => $graphiteuser,
       cleanup => true,
       require => File['/opt/puppet/packages/'],
   }

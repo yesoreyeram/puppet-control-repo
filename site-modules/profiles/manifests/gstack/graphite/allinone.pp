@@ -1,5 +1,6 @@
 # Class profiles::gstack::graphite::allinone
 class profiles::gstack::graphite::allinone (
+  String  $graphiteuser               = lookup('profiles::gstack::general_settings::username'),
   Hash    $grweb_local_settings      = lookup('profiles::gstack::graphite::allinone::graphite_web::local_settings'),
   Hash    $carbon_conf_settings      = lookup('profiles::gstack::graphite::allinone::graphite::carbon_conf_settings'),
   Hash    $storage_schemas           = lookup('profiles::gstack::graphite::allinone::graphite::storage_schemas'),
@@ -58,7 +59,7 @@ class profiles::gstack::graphite::allinone (
       command        => '/opt/graphite/bin/carbon-cache.py --instance=a --debug start',
       stdout_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
       stderr_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
-      user           => lookup('username'),
+      user           => $graphiteuser,
       autostart      => true,
       autorestart    => true,
       stopsignal     => 'QUIT',
@@ -68,7 +69,7 @@ class profiles::gstack::graphite::allinone (
       command        => '/opt/graphite/bin/carbon-cache.py --instance=b --debug start',
       stdout_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
       stderr_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
-      user           => lookup('username'),
+      user           => $graphiteuser,
       autostart      => true,
       autorestart    => true,
       stopsignal     => 'QUIT',
@@ -78,7 +79,7 @@ class profiles::gstack::graphite::allinone (
       command        => '/opt/graphite/bin/carbon-relay.py --instance=a --debug start',
       stdout_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
       stderr_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
-      user           => lookup('username'),
+      user           => $graphiteuser,
       autostart      => true,
       autorestart    => true,
       stopsignal     => 'QUIT',

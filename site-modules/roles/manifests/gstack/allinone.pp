@@ -9,6 +9,7 @@ class roles::gstack::allinone {
   include ::profiles::gstack::base::pip
   include ::profiles::gstack::base::setuptools
   include ::profiles::gstack::base::supervisor
+  include ::profiles::gstack::base::mysql
   include ::profiles::gstack::grafana::prime
   include ::profiles::gstack::grafana::alert
   include ::profiles::gstack::graphite::allinone
