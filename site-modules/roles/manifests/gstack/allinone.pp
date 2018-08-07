@@ -11,8 +11,8 @@ class roles::gstack::allinone {
   include ::profiles::gstack::base::supervisor
   ::profiles::gstack::grafana::instance { 'grafana-prime':  instance_name => 'prime'  }
   ::profiles::gstack::grafana::instance { 'grafana-alert':  instance_name => 'alert'  }
-  #include ::profiles::gstack::graphite::allinone
-  #include ::profiles::gstack::graphite::uwsgi
+  include ::profiles::gstack::graphite::allinone
+  include ::profiles::gstack::graphite::uwsgi
   #endregion
   #region Dependencies
   Class['::profiles::base']                       -> Class['::profiles::gstack::base']
@@ -24,7 +24,7 @@ class roles::gstack::allinone {
   Class['::profiles::gstack::base::pip']          -> Class['::profiles::gstack::base::supervisor']
   Class['::profiles::gstack::base::supervisor']   -> Profiles::Gstack::Grafana::Instance['grafana-prime']
   Class['::profiles::gstack::base::supervisor']   -> Profiles::Gstack::Grafana::Instance['grafana-alert']
-  #Class['::profiles::gstack::base::supervisor']   -> Class['::profiles::gstack::graphite::allinone']
-  #Class['::profiles::gstack::base::setuptools']   -> Class['::profiles::gstack::graphite::allinone']
+  Class['::profiles::gstack::base::supervisor']   -> Class['::profiles::gstack::graphite::allinone']
+  Class['::profiles::gstack::base::setuptools']   -> Class['::profiles::gstack::graphite::allinone']
   #endregion
 }

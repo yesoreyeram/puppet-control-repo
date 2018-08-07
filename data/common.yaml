@@ -1,6 +1,6 @@
 ---
   # General Settings
-  profiles::gstack::general_setting::enhancer_packages : ['wget','sudo','openssh-server','curl','nano','git','unzip','lvm2']
+  profiles::gstack::general_setting::enhancer_packages : ['wget','sudo','openssh-server','curl','nano','git','unzip','lvm2','telnet','nc']
   profiles::gstack::general_setting::enhancer_packages_redhat : ['epel-release', 'libffi-devel', 'openssl-devel']
   profiles::gstack::general_setting::enhancer_packages_debian : ['apt-utils','apt-transport-https','apache2-utils','build-essential', 'libssl-dev', 'libffi-dev','jq']
   profiles::gstack::general_settings::username : "_monitoring"

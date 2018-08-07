@@ -9,6 +9,14 @@ class profiles::gstack::graphite::base (
   $check_whisper = "pip show whisper | grep ${graphiteversion}"
   $check_carbon = "cat /opt/graphite/lib/carbon-${graphiteversion}-*/PKG-INFO | grep 'Version:' | grep -v 'Meta' | grep ${graphiteversion}"
   $check_graphite_web = "cat /opt/graphite/webapp/graphite_web-${graphiteversion}-*/PKG-INFO | grep 'Version:' | grep ${graphiteversion}"
+  #region Create required folders
+  file { ['/opt/graphite/','/opt/graphite/storage','/opt/data/graphite','/opt/data/graphite/storage/'] :
+      ensure  => directory,
+      group   => $graphiteuser,
+      owner   => $graphiteuser,
+      require => User['grafana_user'],
+  }
+  #endregion
   #region Install Mandatory Packages
   ensure_packages(['cairo-devel'])
   file { '/opt/graphite/requirements.txt' :
@@ -19,16 +27,9 @@ class profiles::gstack::graphite::base (
     path        => '/usr/bin:/usr/sbin:/bin',
     provider    => shell,
     command     => 'pip install -r /opt/graphite/requirements.txt',
+    require     => Class['::profiles::gstack::base::pip'],
     subscribe   => File['/opt/graphite/requirements.txt'],
     refreshonly => true
-  }
-  #endregion
-  #region Create required folders
-  file { ['/opt/graphite/','/opt/graphite/storage','/opt/data/graphite','/opt/data/graphite/storage/'] :
-      ensure  => directory,
-      group   => $graphiteuser,
-      owner   => $graphiteuser,
-      require => User['grafana_user'],
   }
   #endregion
   #region Download packages

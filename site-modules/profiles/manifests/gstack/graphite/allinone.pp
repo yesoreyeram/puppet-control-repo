@@ -46,13 +46,22 @@ class profiles::gstack::graphite::allinone (
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/graphTemplates.conf.erb'),
   }
+  exec { 'graphite-chown' :
+    path    => '/usr/bin:/usr/sbin:/bin',
+    command => "chown -R ${graphiteuser}:${graphiteuser} /opt/graphite/",
+    require => User['grafana_user']
+}
   exec { 'Graphite-Web-Django-Admin-Migrate' :
       path        => '/usr/bin:/usr/sbin:/bin',
       provider    => shell,
       environment => ['PYTHONPATH=/opt/graphite/webapp/'],
       command     => 'django-admin migrate  --settings=graphite.settings',
       onlyif      => ['PYTHONPATH=/opt/graphite/webapp/ django-admin.py showmigrations --settings=graphite.settings | grep "\[\ \]"'],
-      require     => [File['/opt/graphite/conf/wsgi.py'],File['/opt/graphite/webapp/graphite/local_settings.py']],
+      require     => [
+        File['/opt/graphite/conf/wsgi.py'],
+        File['/opt/graphite/webapp/graphite/local_settings.py'],
+        Exec['graphite-chown'],
+      ],
   }
   supervisord::program {
     'carbon-cache-a':
