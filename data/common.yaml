@@ -1,10 +1,16 @@
 ---
+  # General Settings
   profiles::gstack::general_setting::enhancer_packages : ['wget','sudo','openssh-server','curl','nano','git','unzip','lvm2']
   profiles::gstack::general_setting::enhancer_packages_redhat : ['epel-release', 'libffi-devel', 'openssl-devel']
   profiles::gstack::general_setting::enhancer_packages_debian : ['apt-utils','apt-transport-https','apache2-utils','build-essential', 'libssl-dev', 'libffi-dev','jq']
   profiles::gstack::general_settings::username : "_monitoring"
+  # Supervisor Settings
+  profiles::gstack::supervisor::user : "superuser"
+  profiles::gstack::supervisor::pass : "superpass"
+  # MySQL Settings
   profiles::gstack::mysql::root_username : "root"
   profiles::gstack::mysql::root_password : "mysqlStrongPasswords"
+  # Graphite Settings
   profiles::gstack::graphite::allinone::graphite::carbon_conf_settings :
     'cache:a':
       USER : "%{lookup('profiles::gstack::general_settings::username')}"
@@ -208,13 +214,12 @@
       max-requests : 5000
       log-maxsize : 104857600
       logto : /opt/data/log/uwsgi/graphite.log
+  # Grafana Settings
   profiles::gstack::grafana::version : "5.1.3"
   profiles::gstack::grafana::download_url : "https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-%{lookup(profiles::gstack::general_settings::grafana_version)}.linux-x64.tar.gz"
-  profiles::gstack::grafana::prime::command: "/opt/grafana/prime/bin/grafana-server --homepath=/opt/grafana/prime/ --config=/opt/grafana/storage/prime/conf/grafana.ini &"
   profiles::gstack::grafana::prime::cfg:
     server:
-      port : 3003
-  profiles::gstack::grafana::alert::command: "/opt/grafana/alert/bin/grafana-server --homepath=/opt/grafana/alert/ --config=/opt/grafana/storage/alert/conf/grafana.ini &"
+      http_port : 3003
   profiles::gstack::grafana::alert::cfg:
     server:
-      port : 3004
+      http_port : 3004
