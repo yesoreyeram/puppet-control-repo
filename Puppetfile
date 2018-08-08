@@ -22,3 +22,4 @@ mod 'willdurand-nodejs',
   :git => 'https://github.com/willdurand/puppet-nodejs.git',
   :ref => 'f03298f04c8e85138e75109edeb9a94071c6a07c'
 mod 'dwerder-graphite', '7.3.0'
+mod 'engage-uwsgi', '1.2.0'
