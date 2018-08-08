@@ -18,7 +18,7 @@ class profiles::gstack::graphite::base (
   }
   #endregion
   #region Install Mandatory Packages
-  ensure_packages(['cairo-devel'])
+  ensure_packages(['gcc','cairo-devel'])
   file { '/opt/graphite/requirements.txt' :
     ensure  => file,
     content => template('profiles/gstack/graphite/conf/requirements.txt.erb')

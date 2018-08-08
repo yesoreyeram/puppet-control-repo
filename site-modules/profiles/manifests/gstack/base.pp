@@ -17,6 +17,7 @@ class profiles::gstack::base (
   user { 'grafana_user' :
         ensure => present,
         name   => $username,
+        system => true,
   }
   #endregion
   #region Package directories

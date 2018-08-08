@@ -17,7 +17,7 @@ class profiles::gstack::graphite::uwsgi (
     require => File['/etc/uwsgi.d/apps-available/']
   }
   supervisord::program { 'uwsgi' :
-      command        => '/sbin/uwsgi --ini /etc/uwsgi.d/apps-available/graphite.ini --pidfile /opt/data/uwsgi/uwsgi.pid -s 127.0.0.1:5000',
+      command        => '/sbin/uwsgi --ini /etc/uwsgi.d/apps-available/graphite.ini --pidfile /opt/data/uwsgi/uwsgi.pid  --fastcgi-socket 127.0.0.1:5000',
       stdout_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
       stderr_logfile => '/opt/data/log/supervisor/%(program_name)s.log',
       user           => $graphiteuser,
