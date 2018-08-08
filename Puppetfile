@@ -8,6 +8,7 @@ mod 'puppetlabs-gcc', '0.3.0'
 mod 'puppetlabs-translate', '1.1.0'
 mod 'puppetlabs-mysql', '5.4.0'
 
+mod 'puppet-selinux', '1.5.2'
 mod 'puppet-archive', '3.1.0'
 mod 'puppet-staging', '3.2.0'
 mod 'puppet-grafana', '4.5.0'
