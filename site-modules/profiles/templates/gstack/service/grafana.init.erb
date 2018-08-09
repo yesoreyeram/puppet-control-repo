@@ -1,0 +1,95 @@
+#!/bin/sh
+
+# chkconfig: 345 80 20
+# description: Start/Stop grafana-<%= scope.lookupvar('instance_name') %>
+# processname: grafana-<%= scope.lookupvar('instance_name') %>
+# config: '/config.conf'
+
+### BEGIN INIT INFO
+# Provides: grafana-<%= scope.lookupvar('instance_name') %>
+# Required-Start: $local_fs $network $remote_fs
+# Required-Stop: $local_fs $network $remote_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Start/Stop grafana-<%= scope.lookupvar('instance_name') %>
+# Description: Enables grafana-<%= scope.lookupvar('instance_name') %>
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+OPERATION="$1"
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+start()
+{
+    if pgrep -f "grafana/<%= scope.lookupvar('instance_name') %>" 2>/dev/null; then
+        echo "Process already running - grafana/<%= scope.lookupvar('instance_name') %>"
+        pgrep -a -f "grafana/<%= scope.lookupvar('instance_name') %>"
+        return 0;
+    else 
+        su - <%= scope.lookupvar('grafanauser') %> -c '/opt/grafana/<%= scope.lookupvar('instance_name') %>/bin/grafana-server --homepath=/opt/grafana/<%= scope.lookupvar('instance_name') %>/ --config=/opt/grafana/storage/<%= scope.lookupvar('instance_name') %>/conf/grafana.ini  &'
+        return 0;
+    fi
+}
+
+stop()
+{
+    if pgrep -f "grafana/<%= scope.lookupvar('instance_name') %>" 2>/dev/null; then
+        pkill -f "grafana/<%= scope.lookupvar('instance_name') %>"
+        echo "Terminating grafana/<%= scope.lookupvar('instance_name') %>"
+    else 
+        echo "Process 'grafana/<%= scope.lookupvar('instance_name') %>' is not running. No actions taken."
+    fi
+    return 0;
+}
+
+restart() {
+    stop;
+    start;
+}
+
+reload() {
+    restart;
+}
+
+force_reload() {
+    restart;
+}
+status() {
+    if pgrep -f "grafana/<%= scope.lookupvar('instance_name') %>" 2>/dev/null; then
+        echo -e "${GREEN}OK - Process running ${NC}- grafana/<%= scope.lookupvar('instance_name') %>"
+        pgrep -a -f "grafana/<%= scope.lookupvar('instance_name') %>"
+        return 0;
+    else 
+        echo -e "${RED}ERROR - Process not running ${NC}- grafana/<%= scope.lookupvar('instance_name') %>"
+        return 1;
+    fi
+}
+
+case "${OPERATION}" in
+    start)
+        $1
+        ;;
+    stop)
+        $1
+        ;;
+    restart)
+        $1
+        ;;
+    reload)
+        $1
+        ;;
+    force-reload)
+        force_reload
+        ;;
+    status)
+        status
+        ;;
+    *)
+        echo "Usage: service grafana-<%= scope.lookupvar('instance_name') %>  {start|stop|status|restart}"
+        exit 2
+esac
+exit $?
