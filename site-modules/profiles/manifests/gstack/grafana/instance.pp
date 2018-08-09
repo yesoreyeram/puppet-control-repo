@@ -3,6 +3,7 @@
 define profiles::gstack::grafana::instance (
   String $instance_name,
   Hash   $cfg             = lookup("profiles::gstack::grafana::${instance_name}::cfg"),
+  Hash   $ldap_cfg        = lookup("profiles::gstack::grafana::${instance_name}::ldap_cfg", Hash, 'hash', {}),
   String $grafanauser     = lookup('profiles::gstack::general_settings::username'),
   String $grafanaversion  = lookup('profiles::gstack::grafana::version'),
   String $mysql_username  = lookup('profiles::gstack::mysql::root_username'),
@@ -22,10 +23,13 @@ define profiles::gstack::grafana::instance (
   mysql::db { "grafana-${instance_name}" :
     user     => $mysql_username,
     password => $mysql_password,
-    require  => Class['::profiles::gstack::grafana::base']
+    require  => [
+      Class['::profiles::gstack::grafana::base'],
+      Class['::profiles::gstack::base::mysql']
+    ]
   }
   exec {
-    "Extract Grafana ${instance_name}":
+    "Extract Grafana ${instance_name}" :
       path     => '/usr/bin:/usr/sbin:/bin',
       provider => shell,
       command  => "su - ${grafanauser} -c 'tar -xzvf /opt/puppet/packages/grafana-${grafanaversion}.tar.gz -C /opt/grafana/${instance_name} --strip-components=1'",
@@ -38,7 +42,14 @@ define profiles::gstack::grafana::instance (
         content => template('profiles/gstack/grafana/config.ini.erb'),
         owner   => $grafanauser,
         group   => $grafanauser,
-        require => File["/opt/grafana/storage/${instance_name}/conf/"]
+        require => File["/opt/grafana/storage/${instance_name}/conf/"],
+  }
+  file { "/opt/grafana/storage/${instance_name}/conf/ldap.toml" :
+    ensure  => file,
+    group   => $grafanauser,
+    owner   => $grafanauser ,
+    content => inline_template("<%= require 'toml'; TOML::Generator.new(@ldap_cfg).body %>\n"),
+    require => File["/opt/grafana/storage/${instance_name}/conf/"],
   }
   file { "/etc/init.d/grafana-${instance_name}" :
     content => template('profiles/gstack/grafana/grafana.service.erb'),
@@ -53,6 +64,12 @@ define profiles::gstack::grafana::instance (
       enable   => true,
       name     => "grafana-${instance_name}",
       provider => 'redhat',
-      require  => File["/etc/init.d/grafana-${instance_name}"],
+      require  => [
+        Mysql::Db["grafana-${instance_name}"],
+        Exec["Extract Grafana ${instance_name}"],
+        File["/opt/grafana/storage/${instance_name}/conf/grafana.ini"],
+        File["/opt/grafana/storage/${instance_name}/conf/ldap.toml" ],
+        File["/etc/init.d/grafana-${instance_name}"],
+      ],
   }
 }
