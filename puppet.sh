@@ -13,7 +13,10 @@ MODULEDIR="/opt/puppet/modules/"
 MODULEPATH="/opt/puppet/modules/:/opt/puppet/site-modules/"
 HEIRA_CONFIG="/opt/puppet/hiera.yaml"
 ENTRYPOINT="/opt/puppet/manifests/site.pp"
+GEM="/opt/puppetlabs/puppet/bin/gem"
 R10K="/opt/puppetlabs/puppet/bin/r10k"
+BUNDLE="/opt/puppetlabs/puppet/bin/bundle"
+GEMFILE="/opt/puppet/Gemfile"
 
 echo "==========================================================" # >> /opt/puppet/logs/puppetrun.log
 echo "$(date) INFO : Installing required Puppet modules" # >> /opt/puppet/logs/puppetrun.log
@@ -24,6 +27,13 @@ echo "$(date) INFO : Installing modules from /opt/puppet/Puppetfile" # >> /opt/p
 $R10K puppetfile install --puppetfile $PUPPETFILE --moduledir $MODULEDIR # >> /opt/puppet/logs/puppetrun.log
 echo "$(date) INFO : Puppet modules list - After install/update" # >> /opt/puppet/logs/puppetrun.log
 $PUPPET module list --tree --modulepath=$MODULEDIR # >> /opt/puppet/logs/puppetrun.log
+
+echo "==========================================================" # >> /opt/puppet/logs/puppetrun.log
+echo "$(date) INFO : Installing required gems" # >> /opt/puppet/logs/puppetrun.log
+echo "==========================================================" # >> /opt/puppet/logs/puppetrun.log
+$GEM install bundler
+$GEM install toml
+#$BUNDLE install --gemfile=$GEMFILE
 
 echo "==========================================================" # >> /opt/puppet/logs/puppetrun.log
 echo "$(date) INFO : Applying puppet" # >> /opt/puppet/logs/puppetrun.log
