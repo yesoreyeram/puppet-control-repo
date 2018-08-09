@@ -2,6 +2,9 @@
 .vagrant/
 vagrant/
 
+# Lock Files
+*.lock
+
 # Log Files
 *.log
 logs/
