@@ -41,7 +41,7 @@ define profiles::gstack::grafana::instance (
         require => File["/opt/grafana/storage/${instance_name}/conf/"]
   }
   file { "/etc/init.d/grafana-${instance_name}" :
-    content => template('profiles/gstack/service/grafana.init.erb'),
+    content => template('profiles/gstack/grafana/grafana.service.erb'),
     group   => $grafanauser,
     mode    => '0755',
     notify  => Service["grafana-${instance_name}"],
