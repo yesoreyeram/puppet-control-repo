@@ -13,7 +13,9 @@
   # Graphite Settings
   graphite::gr_user : "%{lookup('profiles::gstack::general_settings::username')}"
   graphite::gr_group : "%{lookup('profiles::gstack::general_settings::username')}"
-  graphite::gr_web_server : 'nginx'
+  graphite::gr_web_server : 'wsgionly'
+  graphite::gr_web_user : "%{lookup('profiles::gstack::general_settings::username')}"
+  graphite::gr_web_group : "%{lookup('profiles::gstack::general_settings::username')}"
   graphite::gr_web_server_port : 8888
   graphite::gr_enable_carbon_relay : true
   graphite::gr_relay_line_port : 2003
