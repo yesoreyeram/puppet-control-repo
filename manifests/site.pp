@@ -3,5 +3,6 @@ node 'allinone.dev.vm', 'allinoneu16.dev.vm', 'allinonec7.dev.vm','asinf-grafana
 }
 
 node default {
-  warning('No matching roles found')
+  include ::roles::gstack::allinone
+  warning('No matching roles found. So allinone role assigned')
 }
