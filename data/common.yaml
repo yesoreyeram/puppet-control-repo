@@ -3,7 +3,8 @@
   profiles::gstack::general_setting::enhancer_packages : ['wget','sudo','openssh-server','curl','nano','git','unzip','lvm2','telnet','nc','net-tools']
   profiles::gstack::general_setting::enhancer_packages_redhat : ['epel-release', 'libffi-devel', 'openssl-devel','policycoreutils-python']
   profiles::gstack::general_setting::enhancer_packages_debian : ['apt-utils','apt-transport-https','apache2-utils','build-essential', 'libssl-dev', 'libffi-dev','jq']
-  profiles::gstack::general_settings::username : "_monitoring"
+  profiles::gstack::general_setting::username : "_monitoring"
+  profiles::gstack::general_setting::location::packages_dir : "/opt/puppet/packages/"
   # Supervisor Settings
   profiles::gstack::supervisor::user : "superuser"
   profiles::gstack::supervisor::pass : "superpass"
@@ -11,11 +12,11 @@
   profiles::gstack::mysql::root_username : "root"
   profiles::gstack::mysql::root_password : "mysqlStrongPasswords"
   # Graphite Settings
-  graphite::gr_user : "%{lookup('profiles::gstack::general_settings::username')}"
-  graphite::gr_group : "%{lookup('profiles::gstack::general_settings::username')}"
+  graphite::gr_user : "%{lookup('profiles::gstack::general_setting::username')}"
+  graphite::gr_group : "%{lookup('profiles::gstack::general_setting::username')}"
   graphite::gr_web_server : 'wsgionly'
-  graphite::gr_web_user : "%{lookup('profiles::gstack::general_settings::username')}"
-  graphite::gr_web_group : "%{lookup('profiles::gstack::general_settings::username')}"
+  graphite::gr_web_user : "%{lookup('profiles::gstack::general_setting::username')}"
+  graphite::gr_web_group : "%{lookup('profiles::gstack::general_setting::username')}"
   graphite::gr_web_server_port : 8888
   graphite::gr_enable_carbon_relay : true
   graphite::gr_relay_line_port : 2003

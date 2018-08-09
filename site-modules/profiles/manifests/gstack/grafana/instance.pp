@@ -2,9 +2,10 @@
 #
 define profiles::gstack::grafana::instance (
   String $instance_name,
+  String $packages_dir    = lookup('profiles::gstack::general_setting::location::packages_dir'),
   Hash   $cfg             = lookup("profiles::gstack::grafana::${instance_name}::cfg"),
   Hash   $ldap_cfg        = lookup("profiles::gstack::grafana::${instance_name}::ldap_cfg", Hash, 'hash', {}),
-  String $grafanauser     = lookup('profiles::gstack::general_settings::username'),
+  String $grafanauser     = lookup('profiles::gstack::general_setting::username'),
   String $grafanaversion  = lookup('profiles::gstack::grafana::version'),
   String $mysql_username  = lookup('profiles::gstack::mysql::root_username'),
   String $mysql_password  = lookup('profiles::gstack::mysql::root_password'),
@@ -32,7 +33,7 @@ define profiles::gstack::grafana::instance (
     "Extract Grafana ${instance_name}" :
       path     => '/usr/bin:/usr/sbin:/bin',
       provider => shell,
-      command  => "su - ${grafanauser} -c 'tar -xzvf /opt/puppet/packages/grafana-${grafanaversion}.tar.gz -C /opt/grafana/${instance_name} --strip-components=1'",
+      command  => "su - ${grafanauser} -c 'tar -xzvf ${packages_dir}/grafana-${grafanaversion}.tar.gz -C /opt/grafana/${instance_name} --strip-components=1'",
       unless   => "cat /opt/grafana/${instance_name}/VERSION | grep ${grafanaversion}",
       require  => File["/opt/grafana/${instance_name}/"],
   }

@@ -2,7 +2,7 @@
 #
 #
 class profiles::gstack::nginx::graphite_web (
-  $nginx_username = lookup('profiles::gstack::general_settings::username')
+  $nginx_username = lookup('profiles::gstack::general_setting::username')
 ){
   include ::profiles::gstack::nginx::base
   selinux::port {

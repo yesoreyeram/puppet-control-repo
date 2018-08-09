@@ -2,9 +2,10 @@
 #
 #
 class profiles::gstack::grafana::base (
-  String $grafanauser          = lookup('profiles::gstack::general_settings::username'),
+  String $grafanauser          = lookup('profiles::gstack::general_setting::username'),
   String $grafanaversion       = lookup('profiles::gstack::grafana::version'),
-  String $grafana_download_url = lookup('profiles::gstack::grafana::download_url')
+  String $grafana_download_url = lookup('profiles::gstack::grafana::download_url'),
+  String $packages_dir         = lookup('profiles::gstack::general_setting::location::packages_dir'),
 ) {
   file {
     ['/opt/grafana/','/opt/grafana/storage'] :
@@ -14,13 +15,13 @@ class profiles::gstack::grafana::base (
       require => [ User['grafana_user'], Class['::profiles::gstack::base'], Class['::profiles::gstack::base::mysql'] ],
   }
   archive {
-    "/opt/puppet/packages/grafana-${grafanaversion}.tar.gz":
+    "${$packages_dir}/grafana-${grafanaversion}.tar.gz":
       ensure  => present,
       extract => false,
       source  => $grafana_download_url,
       user    => $grafanauser,
       group   => $grafanauser,
       cleanup => true,
-      require => [File['/opt/puppet/packages/'], Class['::profiles::gstack::base'], Class['::profiles::gstack::base::mysql']],
+      require => [File["${packages_dir}"], Class['::profiles::gstack::base'], Class['::profiles::gstack::base::mysql']],
   }
 }

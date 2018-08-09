@@ -2,9 +2,10 @@
 #
 #
 class profiles::gstack::base (
-  String        $username                 = lookup('profiles::gstack::general_settings::username'),
+  String        $username                 = lookup('profiles::gstack::general_setting::username'),
   Array[String] $redhat_specific_packages = lookup('profiles::gstack::general_setting::enhancer_packages_redhat'),
   Array[String] $debian_specific_packages = lookup('profiles::gstack::general_setting::enhancer_packages_debian'),
+  String        $packages_dir             = lookup('profiles::gstack::general_setting::location::packages_dir'),
 ) {
   #region OS Specific packages
   case $::osfamily {
@@ -21,7 +22,7 @@ class profiles::gstack::base (
   }
   #endregion
   #region Package directories
-  file { '/opt/puppet/packages' :
+  file { "${packages_dir}" :
     ensure => directory
   }
   file { ['/opt/data/','/opt/data/log/'] :
