@@ -1,5 +1,20 @@
 # Class profiles::gstack::graphite::allinone
 class profiles::gstack::graphite::allinone (
+  $webserver_port = lookup('graphite::gr_web_server_port'),
+){
+  selinux::port {
+    "allow-graphite-${$webserver_port}" :
+      ensure   => 'present',
+      seltype  => 'http_port_t',
+      protocol => 'tcp',
+      port     => $webserver_port,
+  }
+  class { 'graphite' :
+    require => Selinux::Port["allow-graphite-${$webserver_port}"]
+  }
+}
+/*
+class profiles::gstack::graphite::allinone (
   String  $graphiteuser               = lookup('profiles::gstack::general_settings::username'),
   Hash    $grweb_local_settings      = lookup('profiles::gstack::graphite::allinone::graphite_web::local_settings'),
   Hash    $carbon_conf_settings      = lookup('profiles::gstack::graphite::allinone::graphite::carbon_conf_settings'),
@@ -94,3 +109,4 @@ class profiles::gstack::graphite::allinone (
       stopsignal     => 'QUIT',
   }
 }
+*/
